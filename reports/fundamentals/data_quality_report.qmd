@@ -1,0 +1,68 @@
+---
+title: "Fundamentals Data Quality Report"
+format:
+  html:
+    toc: true
+    embed-resources: false
+execute:
+  enabled: false
+---
+
+## Executive summary
+
+SEC filing vintages are retained by CIK, accession, period end, and availability date. Direct-quarter and annual flow facts are calculated separately from their reported durations; YTD and ambiguous contexts are excluded from comparable KPIs. Historical KPI comparisons use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Ratios use guarded denominators and no source vintage is overwritten.
+
+## Accounting and vintage checks
+
+
+
+| records| companies| identity_flags| future_period_flags| period_after_filing_flags| duplicate_vintage_flags| large_restatement_flags|
+|-------:|---------:|--------------:|-------------------:|-------------------------:|-----------------------:|-----------------------:|
+| 2016620|     16154|          71677|                  18|                       376|                       0|                   98074|
+
+## Transparent anomaly counts
+
+
+
+| records| revenue_down_sharply| cfo_deterioration| margin_collapse| leverage_spike| interest_coverage_collapse| unusual_accruals|
+|-------:|--------------------:|-----------------:|---------------:|--------------:|--------------------------:|----------------:|
+|  363790|                20776|              7312|           21606|            545|                      16354|            20008|
+
+## Field coverage
+
+
+
+|field               |source                                       |available |note                                                                                                      |
+|:-------------------|:--------------------------------------------|:---------|:---------------------------------------------------------------------------------------------------------|
+|revenue             |upstream SEC concept-priority map            |TRUE      |Raw taxonomy, concept, unit, accession, and filing provenance remain in the upstream selected-facts mart. |
+|gross_profit        |upstream SEC concept-priority map            |TRUE      |Raw taxonomy, concept, unit, accession, and filing provenance remain in the upstream selected-facts mart. |
+|operating_income    |upstream SEC concept-priority map            |TRUE      |Raw taxonomy, concept, unit, accession, and filing provenance remain in the upstream selected-facts mart. |
+|net_income          |upstream SEC concept-priority map            |TRUE      |Raw taxonomy, concept, unit, accession, and filing provenance remain in the upstream selected-facts mart. |
+|cash                |upstream SEC concept-priority map            |TRUE      |Raw taxonomy, concept, unit, accession, and filing provenance remain in the upstream selected-facts mart. |
+|debt                |upstream SEC concept-priority map            |TRUE      |Raw taxonomy, concept, unit, accession, and filing provenance remain in the upstream selected-facts mart. |
+|assets              |upstream SEC concept-priority map            |TRUE      |Raw taxonomy, concept, unit, accession, and filing provenance remain in the upstream selected-facts mart. |
+|liabilities         |upstream SEC concept-priority map            |TRUE      |Raw taxonomy, concept, unit, accession, and filing provenance remain in the upstream selected-facts mart. |
+|equity              |upstream SEC concept-priority map            |TRUE      |Raw taxonomy, concept, unit, accession, and filing provenance remain in the upstream selected-facts mart. |
+|operating_cash_flow |upstream SEC concept-priority map            |TRUE      |Raw taxonomy, concept, unit, accession, and filing provenance remain in the upstream selected-facts mart. |
+|capex               |upstream SEC concept-priority map            |TRUE      |Raw taxonomy, concept, unit, accession, and filing provenance remain in the upstream selected-facts mart. |
+|interest_expense    |upstream SEC concept-priority map            |TRUE      |Raw taxonomy, concept, unit, accession, and filing provenance remain in the upstream selected-facts mart. |
+|receivables         |not present in supplied normalized wide mart |FALSE     |Retained as an explicit coverage gap; not synthesized.                                                    |
+|inventory           |not present in supplied normalized wide mart |FALSE     |Retained as an explicit coverage gap; not synthesized.                                                    |
+|accounts_payable    |not present in supplied normalized wide mart |FALSE     |Retained as an explicit coverage gap; not synthesized.                                                    |
+|shares              |not present in supplied normalized wide mart |FALSE     |Retained as an explicit coverage gap; not synthesized.                                                    |
+|EPS                 |not present in supplied normalized wide mart |FALSE     |Retained as an explicit coverage gap; not synthesized.                                                    |
+
+## Duration-normalization rules
+
+
+
+|class           |rule                                     |comparable_KPI_use    |
+|:---------------|:----------------------------------------|:---------------------|
+|Instant         |Balance-sheet concept or instant context |Joined to same filing |
+|Quarterly       |70-110 days                              |Yes - quarterly only  |
+|Annual          |330-380 days                             |Yes - annual only     |
+|YTD / ambiguous |111-329 days / outside thresholds        |No                    |
+
+## Reproducibility
+
+Generated by the `targets`-orchestrated R pipeline.

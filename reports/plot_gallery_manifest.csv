@@ -1,0 +1,31 @@
+number,domain,slug,title,caption,file
+1,Macro volatility,01-macro-qlike-by-horizon,Forecast QLIKE by horizon,Compares variance-forecast loss across models and horizons.,figures/gallery/01-macro-qlike-by-horizon.png
+2,Macro volatility,02-macro-rmse-by-horizon,Forecast RMSE by horizon,Shows level-error trade-offs that QLIKE alone can conceal.,figures/gallery/02-macro-rmse-by-horizon.png
+3,Macro volatility,03-macro-model-rank-heatmap,Model rank consistency,Tests whether model leadership is stable across forecast horizons.,figures/gallery/03-macro-model-rank-heatmap.png
+4,Macro volatility,04-macro-actual-vs-forecast,Actual versus 22-day forecast,Places the strongest interpretable specification against realized variance through time.,figures/gallery/04-macro-actual-vs-forecast.png
+5,Macro volatility,05-macro-forecast-calibration,22-day forecast calibration,"Checks bias, dispersion, and extreme-event calibration on log scales.",figures/gallery/05-macro-forecast-calibration.png
+6,Macro volatility,06-macro-residual-distribution,22-day log-error distribution,Shows whether forecast errors are centered and whether tails differ by model.,figures/gallery/06-macro-residual-distribution.png
+7,Macro volatility,07-macro-cumulative-loss-difference,Cumulative loss versus HAR,Tracks when HAR plus VIX gains or loses against the HAR benchmark.,figures/gallery/07-macro-cumulative-loss-difference.png
+8,Macro volatility,08-macro-regime-heatmap,Performance across stress regimes,Compares model loss across the economically defined regimes with sufficient observations.,figures/gallery/08-macro-regime-heatmap.png
+9,Macro volatility,09-macro-dm-significance,Diebold-Mariano significance,Shows signed HAC Diebold-Mariano statistics against HAR; stars mark p < 0.05.,figures/gallery/09-macro-dm-significance.png
+10,Macro volatility,10-macro-vintage-coverage,True-vintage macro coverage,Audits release visibility and median publication lag for every macro series.,figures/gallery/10-macro-vintage-coverage.png
+11,Bank risk,11-bank-cet1-distribution,Latest CET1 distribution,Shows the cross-sectional capital buffer in the latest supervisory quarter.,figures/gallery/11-bank-cet1-distribution.png
+12,Bank risk,12-bank-leverage-distribution,Latest leverage-ratio distribution,Shows the latest loss-absorbing leverage buffer across banks.,figures/gallery/12-bank-leverage-distribution.png
+13,Bank risk,13-bank-risk-dimensions,Capital and profitability risk,Separates capital weakness from profitability weakness for monitored banks.,figures/gallery/13-bank-risk-dimensions.png
+14,Bank risk,14-bank-capital-profitability,Capital versus profitability,"Relates CET1 strength to ROA, with asset size and country retained.",figures/gallery/14-bank-capital-profitability.png
+15,Bank risk,15-bank-cet1-trend,CET1 median and interquartile range,Shows the European banking system's median capital path and dispersion.,figures/gallery/15-bank-cet1-trend.png
+16,Bank risk,16-bank-roa-trend,ROA median and interquartile range,Shows the system's profitability path and cross-sectional dispersion.,figures/gallery/16-bank-roa-trend.png
+17,Bank risk,17-bank-highest-risk,Banks with the highest monitoring scores,Surfaces the latest names requiring the most monitoring attention.,figures/gallery/17-bank-highest-risk.png
+18,Bank risk,18-bank-model-rmse,Bank-model RMSE,"Compares prediction error for one-, two-, and four-quarter deterioration horizons.",figures/gallery/18-bank-model-rmse.png
+19,Bank risk,19-bank-oos-r2,Bank-model out-of-sample R-squared,Shows which models add value over the no-deterioration benchmark.,figures/gallery/19-bank-oos-r2.png
+20,Bank risk,20-bank-stress-scenarios,CET1 under macro scenarios,Compares the full cross-section of stressed CET1 outcomes by scenario.,figures/gallery/20-bank-stress-scenarios.png
+21,Company fundamentals,21-fundamentals-kpi-records,KPI record coverage,Shows how much evidence supports each of 21 transparent KPI definitions.,figures/gallery/21-fundamentals-kpi-records.png
+22,Company fundamentals,22-fundamentals-company-coverage,Company coverage by KPI,Distinguishes deep record counts from broad issuer coverage.,figures/gallery/22-fundamentals-company-coverage.png
+23,Company fundamentals,23-fundamentals-gross-margin,Gross-margin distribution,Compares annual and direct-reported quarterly gross margins after robust display limits.,figures/gallery/23-fundamentals-gross-margin.png
+24,Company fundamentals,24-fundamentals-operating-margin,Operating-margin distribution,Shows the central mass and tails of operating profitability.,figures/gallery/24-fundamentals-operating-margin.png
+25,Company fundamentals,25-fundamentals-revenue-growth,Revenue-growth distribution,Shows the distribution of comparable-period revenue changes.,figures/gallery/25-fundamentals-revenue-growth.png
+26,Company fundamentals,26-fundamentals-leverage,Debt-to-equity distribution,Shows capital-structure dispersion without allowing extreme ratios to dominate the view.,figures/gallery/26-fundamentals-leverage.png
+27,Company fundamentals,27-fundamentals-anomaly-flags,Fundamental anomaly flags,Counts every implemented deterioration and anomaly rule.,figures/gallery/27-fundamentals-anomaly-flags.png
+28,Company fundamentals,28-fundamentals-accounting-flags,Accounting-quality flags,"Counts identity, timing, vintage, and large-restatement quality flags.",figures/gallery/28-fundamentals-accounting-flags.png
+29,Company fundamentals,29-fundamentals-coverage-over-time,KPI coverage over time,Shows whether annual evidence depth expands or contracts through time.,figures/gallery/29-fundamentals-coverage-over-time.png
+30,Company fundamentals,30-fundamentals-kpi-trends,Annual KPI medians over time,Tracks robust annual medians for four comparable operating KPIs.,figures/gallery/30-fundamentals-kpi-trends.png

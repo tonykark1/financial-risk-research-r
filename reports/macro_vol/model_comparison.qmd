@@ -1,0 +1,190 @@
+---
+title: "Macro Model Comparison"
+format:
+  html:
+    toc: true
+    embed-resources: false
+execute:
+  enabled: false
+---
+
+## Executive summary
+
+The experiment uses only true-vintage macro observations in historical forecasts. All scaling, imputation, tuning, and fitting occur inside each expanding training window. The strongest QLIKE model is reported separately for each horizon.
+
+## Model ranking
+
+
+
+|model         | horizon| forecasts|     QLIKE|   log_MSE|      RMSE|       MAE| rank_QLIKE|
+|:-------------|-------:|---------:|---------:|---------:|---------:|---------:|----------:|
+|HAR           |       1|      4552| -5.826424| 6.1463587| 0.0005980| 0.0001432|          2|
+|HAR_VIX       |       1|      4552| -6.538962| 5.8838248| 0.0005742| 0.0001396|          1|
+|HAR_Rates     |       1|      4552| -5.519622| 6.1756100| 0.0006021| 0.0001438|          3|
+|Ridge         |       1|      4552| -4.570996| 6.0506092| 0.0005489| 0.0001435|          5|
+|Elastic_Net   |       1|      4552| -5.194014| 6.0304946| 0.0005487| 0.0001434|          4|
+|Random_Forest |       1|      4552| -2.150285| 6.4895771| 0.0006030| 0.0001453|          7|
+|XGBoost       |       1|      4552| -3.377717| 6.2107351| 0.0006046| 0.0001456|          6|
+|HAR           |       5|      4548| -6.509497| 0.9555781| 0.0016931| 0.0004795|          4|
+|HAR_VIX       |       5|      4548| -6.671805| 0.7790574| 0.0016187| 0.0004603|          1|
+|HAR_Rates     |       5|      4548| -6.451295| 0.9698921| 0.0017350| 0.0004799|          6|
+|Ridge         |       5|      4548| -6.666823| 0.8069974| 0.0023583| 0.0005925|          3|
+|Elastic_Net   |       5|      4548| -6.669426| 0.8166897| 0.0022796| 0.0005847|          2|
+|Random_Forest |       5|      4548| -6.466926| 1.0386579| 0.0017990| 0.0005396|          5|
+|XGBoost       |       5|      4548| -6.430979| 0.9346284| 0.0017737| 0.0005271|          7|
+|HAR           |      10|      4543| -5.808945| 0.7136048| 0.0030463| 0.0009109|          4|
+|HAR_VIX       |      10|      4543| -5.916593| 0.5679276| 0.0030070| 0.0008719|          1|
+|HAR_Rates     |      10|      4543| -5.743063| 0.7358217| 0.0031360| 0.0009174|          5|
+|Ridge         |      10|      4543| -5.891769| 0.6123139| 0.0039256| 0.0010845|          3|
+|Elastic_Net   |      10|      4543| -5.900665| 0.6528683| 0.0038673| 0.0010919|          2|
+|Random_Forest |      10|      4543| -5.699830| 0.8497076| 0.0032796| 0.0010794|          7|
+|XGBoost       |      10|      4543| -5.702243| 0.7924958| 0.0034504| 0.0010897|          6|
+|HAR           |      22|      4531| -4.902094| 0.6255647| 0.0063580| 0.0020490|          2|
+|HAR_VIX       |      22|      4531| -4.946431| 0.5274878| 0.0065556| 0.0020059|          1|
+|HAR_Rates     |      22|      4531| -4.779889| 0.6778860| 0.0066314| 0.0021489|          5|
+|Ridge         |      22|      4531| -4.879697| 0.6458727| 0.0088375| 0.0027130|          4|
+|Elastic_Net   |      22|      4531| -4.890264| 0.6428468| 0.0082555| 0.0025076|          3|
+|Random_Forest |      22|      4531| -4.423042| 0.9970874| 0.0074211| 0.0027053|          7|
+|XGBoost       |      22|      4531| -4.531853| 0.9114282| 0.0077080| 0.0027716|          6|
+
+## DM tests
+
+
+
+|model         | horizon|  statistic|   p_value|
+|:-------------|-------:|----------:|---------:|
+|HAR_VIX       |       1| -7.9445805| 0.0000000|
+|HAR_Rates     |       1| 11.6366469| 0.0000000|
+|Ridge         |       1|  1.3506273| 0.1768820|
+|Elastic_Net   |       1|  1.1476042| 0.2511923|
+|Random_Forest |       1|  6.3271851| 0.0000000|
+|XGBoost       |       1|  2.1811055| 0.0292266|
+|HAR_VIX       |       5| -6.6678231| 0.0000000|
+|HAR_Rates     |       5|  5.2547747| 0.0000002|
+|Ridge         |       5| -6.0097155| 0.0000000|
+|Elastic_Net   |       5| -5.8998146| 0.0000000|
+|Random_Forest |       5|  0.8202767| 0.4121014|
+|XGBoost       |       5|  0.7609167| 0.4467463|
+|HAR_VIX       |      10| -4.9493924| 0.0000008|
+|HAR_Rates     |      10|  3.3842178| 0.0007199|
+|Ridge         |      10| -4.4457563| 0.0000090|
+|Elastic_Net   |      10| -4.1285885| 0.0000372|
+|Random_Forest |      10|  2.1014889| 0.0356530|
+|XGBoost       |      10|  1.8149079| 0.0696040|
+|HAR_VIX       |      22| -1.9629703| 0.0497107|
+|HAR_Rates     |      22|  2.0156603| 0.0438944|
+|Ridge         |      22|  0.6107393| 0.5414028|
+|Elastic_Net   |      22|  0.3182184| 0.7503339|
+|Random_Forest |      22|  2.4159793| 0.0157323|
+|XGBoost       |      22|  2.3725206| 0.0177087|
+
+## Feature importance and stability
+
+
+
+|feature         | importance| signed_effect|model         | horizon| training_end| stability_rank|
+|:---------------|----------:|-------------:|:-------------|-------:|------------:|--------------:|
+|log_har_daily   |  0.0058808|     0.0058808|Ridge         |      22|      17568.6|             12|
+|log_har_weekly  |  0.0433416|     0.0433416|Ridge         |      22|      17568.6|             11|
+|log_har_monthly |  0.0827578|    -0.0827578|Ridge         |      22|      17568.6|              8|
+|log_vix         |  0.7782252|     0.7782252|Ridge         |      22|      17568.6|              1|
+|DFF             |  0.3042999|    -0.3042999|Ridge         |      22|      17568.6|              4|
+|DGS2            |  0.2184701|     0.2184701|Ridge         |      22|      17568.6|              6|
+|DGS10           |  0.0805653|     0.0805653|Ridge         |      22|      17568.6|              9|
+|curve_slope     |  0.1397135|     0.1397135|Ridge         |      22|      17568.6|              7|
+|BAMLH0A0HYM2    |  0.0000000|     0.0000000|Ridge         |      22|      17568.6|             13|
+|UNRATE          |  0.0594176|    -0.0594176|Ridge         |      22|      17568.6|             10|
+|CPIAUCSL        |  0.5422298|     0.5422298|Ridge         |      22|      17568.6|              3|
+|INDPRO          |  0.2453745|     0.2453745|Ridge         |      22|      17568.6|              5|
+|GDPC1           |  0.6101537|    -0.6101537|Ridge         |      22|      17568.6|              2|
+|log_har_daily   |  0.0058345|     0.0058345|Elastic_Net   |      22|      17568.6|             12|
+|log_har_weekly  |  0.0429314|     0.0429314|Elastic_Net   |      22|      17568.6|             11|
+|log_har_monthly |  0.0810539|    -0.0810539|Elastic_Net   |      22|      17568.6|              9|
+|log_vix         |  0.7775479|     0.7775479|Elastic_Net   |      22|      17568.6|              1|
+|DFF             |  0.2991294|    -0.2991294|Elastic_Net   |      22|      17568.6|              4|
+|DGS2            |  0.1985267|     0.1985267|Elastic_Net   |      22|      17568.6|              6|
+|DGS10           |  0.0902370|     0.0902370|Elastic_Net   |      22|      17568.6|              8|
+|curve_slope     |  0.1307840|     0.1307840|Elastic_Net   |      22|      17568.6|              7|
+|BAMLH0A0HYM2    |  0.0000000|     0.0000000|Elastic_Net   |      22|      17568.6|             13|
+|UNRATE          |  0.0584031|    -0.0584031|Elastic_Net   |      22|      17568.6|             10|
+|CPIAUCSL        |  0.5374264|     0.5374264|Elastic_Net   |      22|      17568.6|              3|
+|INDPRO          |  0.2448206|     0.2448206|Elastic_Net   |      22|      17568.6|              5|
+|GDPC1           |  0.6051230|    -0.6051230|Elastic_Net   |      22|      17568.6|              2|
+|log_har_daily   |  0.0130378|            NA|Random_Forest |      22|      17568.6|             12|
+|log_har_weekly  |  0.1374678|            NA|Random_Forest |      22|      17568.6|             11|
+|log_har_monthly |  0.2984088|            NA|Random_Forest |      22|      17568.6|              6|
+|log_vix         |  0.4364959|            NA|Random_Forest |      22|      17568.6|              2|
+|DFF             |  0.2780252|            NA|Random_Forest |      22|      17568.6|              9|
+|DGS2            |  0.3087814|            NA|Random_Forest |      22|      17568.6|              5|
+|DGS10           |  0.2510066|            NA|Random_Forest |      22|      17568.6|             10|
+|curve_slope     |  0.2893528|            NA|Random_Forest |      22|      17568.6|              7|
+|BAMLH0A0HYM2    |  0.0000000|            NA|Random_Forest |      22|      17568.6|             13|
+|UNRATE          |  0.3155246|            NA|Random_Forest |      22|      17568.6|              4|
+|CPIAUCSL        |  0.4434047|            NA|Random_Forest |      22|      17568.6|              1|
+|INDPRO          |  0.2866377|            NA|Random_Forest |      22|      17568.6|              8|
+|GDPC1           |  0.4352092|            NA|Random_Forest |      22|      17568.6|              3|
+|log_vix         |  0.5892011|            NA|XGBoost       |      22|      17568.6|              1|
+|log_har_monthly |  0.1289624|            NA|XGBoost       |      22|      17568.6|              2|
+|log_har_weekly  |  0.0753984|            NA|XGBoost       |      22|      17568.6|              3|
+|CPIAUCSL        |  0.0709022|            NA|XGBoost       |      22|      17568.6|              4|
+|GDPC1           |  0.0380279|            NA|XGBoost       |      22|      17568.6|              5|
+|INDPRO          |  0.0379575|            NA|XGBoost       |      22|      17568.6|              6|
+|DGS2            |  0.0264141|            NA|XGBoost       |      22|      17568.6|              7|
+|DGS10           |  0.0155881|            NA|XGBoost       |      22|      17568.6|              8|
+|DFF             |  0.0114043|            NA|XGBoost       |      22|      17568.6|              9|
+|curve_slope     |  0.0031849|            NA|XGBoost       |      22|      17568.6|             10|
+|UNRATE          |  0.0029590|            NA|XGBoost       |      22|      17568.6|             11|
+|log_har_daily   |  0.0037321|    -0.0037321|Ridge         |      22|      19101.8|             12|
+|log_har_weekly  |  0.0663237|     0.0663237|Ridge         |      22|      19101.8|              8|
+|log_har_monthly |  0.0416394|    -0.0416394|Ridge         |      22|      19101.8|             10|
+|log_vix         |  0.7626771|     0.7626771|Ridge         |      22|      19101.8|              1|
+|DFF             |  0.1716576|    -0.1716576|Ridge         |      22|      19101.8|              5|
+|DGS2            |  0.1700157|     0.1700157|Ridge         |      22|      19101.8|              6|
+|DGS10           |  0.0526474|     0.0526474|Ridge         |      22|      19101.8|              9|
+|curve_slope     |  0.0727323|     0.0727323|Ridge         |      22|      19101.8|              7|
+|BAMLH0A0HYM2    |  0.0000000|     0.0000000|Ridge         |      22|      19101.8|             13|
+|UNRATE          |  0.0180661|     0.0180661|Ridge         |      22|      19101.8|             11|
+|CPIAUCSL        |  0.4016466|     0.4016466|Ridge         |      22|      19101.8|              2|
+|INDPRO          |  0.2111637|     0.2111637|Ridge         |      22|      19101.8|              4|
+|GDPC1           |  0.3775939|    -0.3775939|Ridge         |      22|      19101.8|              3|
+|log_har_daily   |  0.0035748|    -0.0035748|Elastic_Net   |      22|      19101.8|             12|
+|log_har_weekly  |  0.0658265|     0.0658265|Elastic_Net   |      22|      19101.8|              8|
+|log_har_monthly |  0.0412872|    -0.0412872|Elastic_Net   |      22|      19101.8|             10|
+|log_vix         |  0.7629597|     0.7629597|Elastic_Net   |      22|      19101.8|              1|
+|DFF             |  0.1705730|    -0.1705730|Elastic_Net   |      22|      19101.8|              5|
+|DGS2            |  0.1647883|     0.1647883|Elastic_Net   |      22|      19101.8|              6|
+|DGS10           |  0.0557540|     0.0557540|Elastic_Net   |      22|      19101.8|              9|
+|curve_slope     |  0.0701307|     0.0701307|Elastic_Net   |      22|      19101.8|              7|
+|BAMLH0A0HYM2    |  0.0000000|     0.0000000|Elastic_Net   |      22|      19101.8|             13|
+|UNRATE          |  0.0173516|     0.0173516|Elastic_Net   |      22|      19101.8|             11|
+|CPIAUCSL        |  0.4002827|     0.4002827|Elastic_Net   |      22|      19101.8|              2|
+|INDPRO          |  0.2103509|     0.2103509|Elastic_Net   |      22|      19101.8|              4|
+|GDPC1           |  0.3765870|    -0.3765870|Elastic_Net   |      22|      19101.8|              3|
+|log_har_daily   |  0.0072943|            NA|Random_Forest |      22|      19101.8|             12|
+|log_har_weekly  |  0.1276748|            NA|Random_Forest |      22|      19101.8|             11|
+|log_har_monthly |  0.4183145|            NA|Random_Forest |      22|      19101.8|              3|
+|log_vix         |  0.9405288|            NA|Random_Forest |      22|      19101.8|              1|
+|DFF             |  0.3802909|            NA|Random_Forest |      22|      19101.8|              5|
+|DGS2            |  0.4810699|            NA|Random_Forest |      22|      19101.8|              2|
+|DGS10           |  0.2368089|            NA|Random_Forest |      22|      19101.8|             10|
+|curve_slope     |  0.2539436|            NA|Random_Forest |      22|      19101.8|              9|
+|BAMLH0A0HYM2    |  0.0000000|            NA|Random_Forest |      22|      19101.8|             13|
+|UNRATE          |  0.2681206|            NA|Random_Forest |      22|      19101.8|              8|
+|CPIAUCSL        |  0.4110075|            NA|Random_Forest |      22|      19101.8|              4|
+|INDPRO          |  0.3764441|            NA|Random_Forest |      22|      19101.8|              6|
+|GDPC1           |  0.3527719|            NA|Random_Forest |      22|      19101.8|              7|
+|log_vix         |  0.5868824|            NA|XGBoost       |      22|      19101.8|              1|
+|log_har_monthly |  0.1204664|            NA|XGBoost       |      22|      19101.8|              2|
+|log_har_weekly  |  0.1100706|            NA|XGBoost       |      22|      19101.8|              3|
+|DFF             |  0.0404111|            NA|XGBoost       |      22|      19101.8|              4|
+|INDPRO          |  0.0372330|            NA|XGBoost       |      22|      19101.8|              5|
+|GDPC1           |  0.0349321|            NA|XGBoost       |      22|      19101.8|              6|
+|CPIAUCSL        |  0.0242678|            NA|XGBoost       |      22|      19101.8|              7|
+|DGS2            |  0.0153276|            NA|XGBoost       |      22|      19101.8|              8|
+|curve_slope     |  0.0128052|            NA|XGBoost       |      22|      19101.8|              9|
+|DGS10           |  0.0121256|            NA|XGBoost       |      22|      19101.8|             10|
+|UNRATE          |  0.0054781|            NA|XGBoost       |      22|      19101.8|             11|
+
+## Reproducibility
+
+Generated by the `targets`-orchestrated R pipeline.

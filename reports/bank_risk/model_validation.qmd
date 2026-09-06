@@ -1,0 +1,129 @@
+---
+title: "Bank Model Validation"
+format:
+  html:
+    toc: true
+    embed-resources: false
+execute:
+  enabled: false
+---
+
+## Executive summary
+
+All evaluation is chronological. Targets are forward changes and training rows are admitted only after their target quarter precedes the forecast quarter. Every fitted model has negative out-of-sample R-squared versus the zero-change persistence benchmark; the system is therefore presented as monitoring and sensitivity analysis, not predictive success.
+
+## Out-of-sample model metrics
+
+
+
+|model         | horizon| forecasts|      RMSE|       MAE|     R2_OOS| rank_correlation| rank_RMSE|
+|:-------------|-------:|---------:|---------:|---------:|----------:|----------------:|---------:|
+|Pooled_OLS    |       1|       827| 0.0182649| 0.0086732| -0.0446217|        0.2265881|         2|
+|Bank_FE_OLS   |       1|       718| 0.0192876| 0.0099632| -0.2101728|        0.1127849|         6|
+|Ridge         |       1|       827| 0.0182250| 0.0086234| -0.0400626|        0.2171808|         1|
+|Elastic_Net   |       1|       827| 0.0182832| 0.0087680| -0.0467200|        0.1333718|         3|
+|Random_Forest |       1|       827| 0.0183696| 0.0091403| -0.0566327|        0.1754961|         4|
+|XGBoost       |       1|       827| 0.0190344| 0.0088880| -0.1344972|        0.1757539|         5|
+|Pooled_OLS    |       2|       700| 0.0226468| 0.0115332| -0.1262583|        0.1385056|         2|
+|Bank_FE_OLS   |       2|       590| 0.0258304| 0.0136867| -0.6529251|        0.0262441|         5|
+|Ridge         |       2|       700| 0.0230753| 0.0115949| -0.1692771|        0.0265961|         3|
+|Elastic_Net   |       2|       700| 0.0223734| 0.0115212| -0.0992331|       -0.0217665|         1|
+|Random_Forest |       2|       700| 0.0247586| 0.0124116| -0.3461031|        0.1004832|         4|
+|XGBoost       |       2|       700| 0.0267103| 0.0125450| -0.5666884|        0.0456194|         6|
+|Pooled_OLS    |       4|       454| 0.0297609| 0.0161804| -0.4785574|        0.1207736|         4|
+|Bank_FE_OLS   |       4|       361| 0.0307353| 0.0164674| -0.7560964|        0.0221783|         6|
+|Ridge         |       4|       454| 0.0292781| 0.0159325| -0.4309691|        0.0994180|         2|
+|Elastic_Net   |       4|       454| 0.0275126| 0.0160941| -0.2635917|        0.0619337|         1|
+|Random_Forest |       4|       454| 0.0305062| 0.0171438| -0.5535317|        0.1041192|         5|
+|XGBoost       |       4|       454| 0.0296001| 0.0162220| -0.4626173|        0.0946738|         3|
+
+## Feature importance and stability
+
+
+
+|feature               | importance| signed_effect|model         | horizon| training_end|
+|:---------------------|----------:|-------------:|:-------------|-------:|------------:|
+|CET1_model            |  0.0005878|    -0.0005878|Ridge         |       1|        19538|
+|Tier1_model           |  0.0004541|    -0.0004541|Ridge         |       1|        19538|
+|total_capital_model   |  0.0027463|     0.0027463|Ridge         |       1|        19538|
+|leverage_ratio_model  |  0.0001523|     0.0001523|Ridge         |       1|        19538|
+|RWA_density           |  0.0011010|     0.0011010|Ridge         |       1|        19538|
+|ROA                   |  0.0005262|    -0.0005262|Ridge         |       1|        19538|
+|capital_deterioration |  0.0026710|    -0.0026710|Ridge         |       1|        19538|
+|asset_growth          |  0.0048069|    -0.0048069|Ridge         |       1|        19538|
+|RWA_growth            |  0.0015227|     0.0015227|Ridge         |       1|        19538|
+|ROA_change            |  0.0004490|     0.0004490|Ridge         |       1|        19538|
+|CET1_model            |  0.0000000|     0.0000000|Elastic_Net   |       1|        19538|
+|Tier1_model           |  0.0000000|     0.0000000|Elastic_Net   |       1|        19538|
+|total_capital_model   |  0.0000000|     0.0000000|Elastic_Net   |       1|        19538|
+|leverage_ratio_model  |  0.0000000|     0.0000000|Elastic_Net   |       1|        19538|
+|RWA_density           |  0.0000000|     0.0000000|Elastic_Net   |       1|        19538|
+|ROA                   |  0.0000000|     0.0000000|Elastic_Net   |       1|        19538|
+|capital_deterioration |  0.0000000|     0.0000000|Elastic_Net   |       1|        19538|
+|asset_growth          |  0.0000000|     0.0000000|Elastic_Net   |       1|        19538|
+|RWA_growth            |  0.0000000|     0.0000000|Elastic_Net   |       1|        19538|
+|ROA_change            |  0.0000000|     0.0000000|Elastic_Net   |       1|        19538|
+|CET1_model            |  0.0000638|            NA|Random_Forest |       1|        19538|
+|Tier1_model           |  0.0000918|            NA|Random_Forest |       1|        19538|
+|total_capital_model   |  0.0000794|            NA|Random_Forest |       1|        19538|
+|leverage_ratio_model  |  0.0000227|            NA|Random_Forest |       1|        19538|
+|RWA_density           |  0.0000377|            NA|Random_Forest |       1|        19538|
+|ROA                   |  0.0000040|            NA|Random_Forest |       1|        19538|
+|capital_deterioration |  0.0000172|            NA|Random_Forest |       1|        19538|
+|asset_growth          |  0.0000054|            NA|Random_Forest |       1|        19538|
+|RWA_growth            |  0.0000062|            NA|Random_Forest |       1|        19538|
+|ROA_change            |  0.0000065|            NA|Random_Forest |       1|        19538|
+|capital_deterioration |  0.2098115|            NA|XGBoost       |       1|        19538|
+|Tier1_model           |  0.2034162|            NA|XGBoost       |       1|        19538|
+|asset_growth          |  0.1112797|            NA|XGBoost       |       1|        19538|
+|CET1_model            |  0.1074508|            NA|XGBoost       |       1|        19538|
+|RWA_growth            |  0.0918019|            NA|XGBoost       |       1|        19538|
+|RWA_density           |  0.0656719|            NA|XGBoost       |       1|        19538|
+|total_capital_model   |  0.0588676|            NA|XGBoost       |       1|        19538|
+|leverage_ratio_model  |  0.0569733|            NA|XGBoost       |       1|        19538|
+|ROA_change            |  0.0531066|            NA|XGBoost       |       1|        19538|
+|ROA                   |  0.0416204|            NA|XGBoost       |       1|        19538|
+|CET1_model            |  0.0004658|    -0.0004658|Ridge         |       1|        19904|
+|Tier1_model           |  0.0000340|    -0.0000340|Ridge         |       1|        19904|
+|total_capital_model   |  0.0019519|     0.0019519|Ridge         |       1|        19904|
+|leverage_ratio_model  |  0.0003978|     0.0003978|Ridge         |       1|        19904|
+|RWA_density           |  0.0009294|     0.0009294|Ridge         |       1|        19904|
+|ROA                   |  0.0007439|    -0.0007439|Ridge         |       1|        19904|
+|capital_deterioration |  0.0031994|    -0.0031994|Ridge         |       1|        19904|
+|asset_growth          |  0.0016125|    -0.0016125|Ridge         |       1|        19904|
+|RWA_growth            |  0.0005298|    -0.0005298|Ridge         |       1|        19904|
+|ROA_change            |  0.0003272|     0.0003272|Ridge         |       1|        19904|
+|CET1_model            |  0.0000000|     0.0000000|Elastic_Net   |       1|        19904|
+|Tier1_model           |  0.0000000|     0.0000000|Elastic_Net   |       1|        19904|
+|total_capital_model   |  0.0000000|     0.0000000|Elastic_Net   |       1|        19904|
+|leverage_ratio_model  |  0.0000000|     0.0000000|Elastic_Net   |       1|        19904|
+|RWA_density           |  0.0000000|     0.0000000|Elastic_Net   |       1|        19904|
+|ROA                   |  0.0000000|     0.0000000|Elastic_Net   |       1|        19904|
+|capital_deterioration |  0.0000000|     0.0000000|Elastic_Net   |       1|        19904|
+|asset_growth          |  0.0000000|     0.0000000|Elastic_Net   |       1|        19904|
+|RWA_growth            |  0.0000000|     0.0000000|Elastic_Net   |       1|        19904|
+|ROA_change            |  0.0000000|     0.0000000|Elastic_Net   |       1|        19904|
+|CET1_model            |  0.0000878|            NA|Random_Forest |       1|        19904|
+|Tier1_model           |  0.0000864|            NA|Random_Forest |       1|        19904|
+|total_capital_model   |  0.0000706|            NA|Random_Forest |       1|        19904|
+|leverage_ratio_model  |  0.0000199|            NA|Random_Forest |       1|        19904|
+|RWA_density           |  0.0000313|            NA|Random_Forest |       1|        19904|
+|ROA                   |  0.0000084|            NA|Random_Forest |       1|        19904|
+|capital_deterioration |  0.0000137|            NA|Random_Forest |       1|        19904|
+|asset_growth          |  0.0000047|            NA|Random_Forest |       1|        19904|
+|RWA_growth            |  0.0000067|            NA|Random_Forest |       1|        19904|
+|ROA_change            |  0.0000133|            NA|Random_Forest |       1|        19904|
+|Tier1_model           |  0.2328103|            NA|XGBoost       |       1|        19904|
+|capital_deterioration |  0.1589907|            NA|XGBoost       |       1|        19904|
+|asset_growth          |  0.1267667|            NA|XGBoost       |       1|        19904|
+|RWA_growth            |  0.0985143|            NA|XGBoost       |       1|        19904|
+|CET1_model            |  0.0913265|            NA|XGBoost       |       1|        19904|
+|total_capital_model   |  0.0843303|            NA|XGBoost       |       1|        19904|
+|ROA_change            |  0.0825693|            NA|XGBoost       |       1|        19904|
+|RWA_density           |  0.0612177|            NA|XGBoost       |       1|        19904|
+|ROA                   |  0.0400093|            NA|XGBoost       |       1|        19904|
+|leverage_ratio_model  |  0.0234649|            NA|XGBoost       |       1|        19904|
+
+## Reproducibility
+
+Generated by the `targets`-orchestrated R pipeline.

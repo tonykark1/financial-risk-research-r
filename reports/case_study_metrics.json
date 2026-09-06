@@ -1,0 +1,44 @@
+{
+  "generated_on": "2026-08-30",
+  "macro_forecasts": 127218,
+  "macro_best_models": [
+    {
+      "horizon_days": 1,
+      "model": "HAR_VIX",
+      "qlike_difference_vs_har": -0.71253804
+    },
+    {
+      "horizon_days": 5,
+      "model": "HAR_VIX",
+      "qlike_difference_vs_har": -0.16230768
+    },
+    {
+      "horizon_days": 10,
+      "model": "HAR_VIX",
+      "qlike_difference_vs_har": -0.10764744
+    },
+    {
+      "horizon_days": 22,
+      "model": "HAR_VIX",
+      "qlike_difference_vs_har": -0.04433683
+    }
+  ],
+  "bank_latest_quarter": "2024-06-30",
+  "bank_count": 124,
+  "bank_median_cet1_pct": 17.54061955,
+  "stress_scenarios": 4,
+  "sec_kpi_records": 2162632,
+  "sec_companies": 15752,
+  "sec_first_period": "1988-05-31",
+  "sec_last_period": "2026-07-05",
+  "accounting_records_checked": 2016620,
+  "accounting_flag_rates": {
+    "identity_break": 0.03554314,
+    "malformed_period": 0,
+    "malformed_available": 0,
+    "future_period": 8.92582638e-06,
+    "period_after_filing": 0.00018645,
+    "duplicate_vintage": 0,
+    "large_restatement": 0.38542616
+  }
+}

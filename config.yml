@@ -1,0 +1,25 @@
+default:
+  project_name: "Financial Research in R"
+  quarto_path: "C:/Program Files/RStudio/resources/app/bin/quarto/bin/quarto.exe"
+  upstream_root: "data/upstream"
+  upstream_catalog: "catalog/data_catalog.csv"
+  upstream_duckdb: "database/research.duckdb"
+  database_path: "database/research.duckdb"
+  seed: 20260813
+  parallel_workers: 2
+  reports:
+    execute_heavy_models: true
+    render_pdf: true
+  bank_risk:
+    horizons_quarters: [1, 2, 4]
+    rolling_market_days: 252
+    minimum_training_quarters: 8
+  macro_vol:
+    horizons_days: [1, 5, 10, 22]
+    initial_window_days: 756
+    retrain_frequency_days: 22
+    ml_retrain_frequency_days: 66
+  fundamentals:
+    identity_tolerance_pct: 0.02
+    peer_minimum_n: 5
+

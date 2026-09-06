@@ -1,0 +1,124 @@
+---
+title: "Macro Forecast Regime Analysis"
+format:
+  html:
+    toc: true
+    embed-resources: false
+execute:
+  enabled: false
+---
+
+## Executive summary
+
+Regime thresholds are fixed from the initial training window or set by economic convention; they are not optimized on forecast performance.
+
+## Regime QLIKE
+
+
+
+|regime          |model         | horizon| forecasts|      QLIKE|
+|:---------------|:-------------|-------:|---------:|----------:|
+|high_vix        |HAR           |       1|      1574| -4.2050847|
+|equity_drawdown |HAR           |       1|      1084| -3.4486975|
+|growth_slowdown |HAR           |       1|      2077| -5.5546521|
+|high_vix        |HAR_VIX       |       1|      1574| -5.5815988|
+|equity_drawdown |HAR_VIX       |       1|      1084| -4.5985571|
+|growth_slowdown |HAR_VIX       |       1|      2077| -6.5484769|
+|high_vix        |HAR_Rates     |       1|      1574| -3.9603513|
+|equity_drawdown |HAR_Rates     |       1|      1084| -2.9618813|
+|growth_slowdown |HAR_Rates     |       1|      2077| -5.2810807|
+|high_vix        |Ridge         |       1|      1574| -5.3235707|
+|equity_drawdown |Ridge         |       1|      1084|  2.2988341|
+|growth_slowdown |Ridge         |       1|      2077| -2.1440198|
+|high_vix        |Elastic_Net   |       1|      1574| -5.3481020|
+|equity_drawdown |Elastic_Net   |       1|      1084| -0.2119689|
+|growth_slowdown |Elastic_Net   |       1|      2077| -3.5395373|
+|high_vix        |Random_Forest |       1|      1574|  1.2787384|
+|equity_drawdown |Random_Forest |       1|      1084|  5.2198656|
+|growth_slowdown |Random_Forest |       1|      2077| -1.0216656|
+|high_vix        |XGBoost       |       1|      1574|  2.2139524|
+|equity_drawdown |XGBoost       |       1|      1084|  6.3228876|
+|growth_slowdown |XGBoost       |       1|      2077| -0.8448884|
+|high_vix        |HAR           |       5|      1574| -5.5112553|
+|equity_drawdown |HAR           |       5|      1084| -5.3068144|
+|growth_slowdown |HAR           |       5|      2073| -6.2970145|
+|high_vix        |HAR_VIX       |       5|      1574| -5.6764577|
+|equity_drawdown |HAR_VIX       |       5|      1084| -5.4604313|
+|growth_slowdown |HAR_VIX       |       5|      2073| -6.4799883|
+|high_vix        |HAR_Rates     |       5|      1574| -5.4268050|
+|equity_drawdown |HAR_Rates     |       5|      1084| -5.1975170|
+|growth_slowdown |HAR_Rates     |       5|      2073| -6.2163832|
+|high_vix        |Ridge         |       5|      1574| -5.6532006|
+|equity_drawdown |Ridge         |       5|      1084| -5.4396013|
+|growth_slowdown |Ridge         |       5|      2073| -6.4627852|
+|high_vix        |Elastic_Net   |       5|      1574| -5.6343249|
+|equity_drawdown |Elastic_Net   |       5|      1084| -5.4205480|
+|growth_slowdown |Elastic_Net   |       5|      2073| -6.4631501|
+|high_vix        |Random_Forest |       5|      1574| -5.3020290|
+|equity_drawdown |Random_Forest |       5|      1084| -4.9434689|
+|growth_slowdown |Random_Forest |       5|      2073| -6.1963540|
+|high_vix        |XGBoost       |       5|      1574| -5.0698429|
+|equity_drawdown |XGBoost       |       5|      1084| -4.6080284|
+|growth_slowdown |XGBoost       |       5|      2073| -6.0214334|
+|high_vix        |HAR           |      10|      1573| -4.8874022|
+|equity_drawdown |HAR           |      10|      1083| -4.6992266|
+|growth_slowdown |HAR           |      10|      2068| -5.6008403|
+|high_vix        |HAR_VIX       |      10|      1573| -4.9971006|
+|equity_drawdown |HAR_VIX       |      10|      1083| -4.7744369|
+|growth_slowdown |HAR_VIX       |      10|      2068| -5.7271559|
+|high_vix        |HAR_Rates     |      10|      1573| -4.7763807|
+|equity_drawdown |HAR_Rates     |      10|      1083| -4.5645943|
+|growth_slowdown |HAR_Rates     |      10|      2068| -5.4923153|
+|high_vix        |Ridge         |      10|      1573| -4.9499203|
+|equity_drawdown |Ridge         |      10|      1083| -4.7433528|
+|growth_slowdown |Ridge         |      10|      2068| -5.6779297|
+|high_vix        |Elastic_Net   |      10|      1573| -4.9563914|
+|equity_drawdown |Elastic_Net   |      10|      1083| -4.7404666|
+|growth_slowdown |Elastic_Net   |      10|      2068| -5.6820086|
+|high_vix        |Random_Forest |      10|      1573| -4.6628637|
+|equity_drawdown |Random_Forest |      10|      1083| -4.3388339|
+|growth_slowdown |Random_Forest |      10|      2068| -5.4783092|
+|high_vix        |XGBoost       |      10|      1573| -4.6392529|
+|equity_drawdown |XGBoost       |      10|      1083| -4.2925202|
+|growth_slowdown |XGBoost       |      10|      2068| -5.4155507|
+|high_vix        |HAR           |      22|      1573| -4.1598501|
+|equity_drawdown |HAR           |      22|      1083| -4.0136573|
+|growth_slowdown |HAR           |      22|      2056| -4.6053110|
+|high_vix        |HAR_VIX       |      22|      1573| -4.2232234|
+|equity_drawdown |HAR_VIX       |      22|      1083| -4.0595417|
+|growth_slowdown |HAR_VIX       |      22|      2056| -4.6406986|
+|high_vix        |HAR_Rates     |      22|      1573| -3.9826932|
+|equity_drawdown |HAR_Rates     |      22|      1083| -3.8066019|
+|growth_slowdown |HAR_Rates     |      22|      2056| -4.3687971|
+|high_vix        |Ridge         |      22|      1573| -4.1078156|
+|equity_drawdown |Ridge         |      22|      1083| -3.9683926|
+|growth_slowdown |Ridge         |      22|      2056| -4.5135892|
+|high_vix        |Elastic_Net   |      22|      1573| -4.1211501|
+|equity_drawdown |Elastic_Net   |      22|      1083| -3.9682371|
+|growth_slowdown |Elastic_Net   |      22|      2056| -4.5254297|
+|high_vix        |Random_Forest |      22|      1573| -3.5670480|
+|equity_drawdown |Random_Forest |      22|      1083| -3.1485615|
+|growth_slowdown |Random_Forest |      22|      2056| -3.8587303|
+|high_vix        |XGBoost       |      22|      1573| -3.6093835|
+|equity_drawdown |XGBoost       |      22|      1083| -3.2557849|
+|growth_slowdown |XGBoost       |      22|      2056| -3.9209811|
+|inflation_shock |HAR           |       1|       661| -4.8332643|
+|inflation_shock |HAR_VIX       |       1|       661| -5.5840666|
+|inflation_shock |HAR_Rates     |       1|       661| -4.7048122|
+|inflation_shock |Ridge         |       1|       661| -4.8141219|
+|inflation_shock |Elastic_Net   |       1|       661| -5.0565706|
+|inflation_shock |Random_Forest |       1|       661|  3.8890451|
+|inflation_shock |XGBoost       |       1|       661|  9.7380165|
+|inflation_shock |HAR           |       5|       661| -5.9601134|
+|inflation_shock |HAR_VIX       |       5|       661| -6.0898527|
+|inflation_shock |HAR_Rates     |       5|       661| -5.9257938|
+|inflation_shock |Ridge         |       5|       661| -6.1443004|
+|inflation_shock |Elastic_Net   |       5|       661| -6.1449996|
+|inflation_shock |Random_Forest |       5|       661| -5.5609443|
+|inflation_shock |XGBoost       |       5|       661| -4.8412305|
+|inflation_shock |HAR           |      10|       661| -5.2832543|
+|inflation_shock |HAR_VIX       |      10|       661| -5.3660010|
+
+## Reproducibility
+
+Generated by the `targets`-orchestrated R pipeline.

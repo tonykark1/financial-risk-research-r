@@ -1,0 +1,110 @@
+---
+title: "Automated Financial Data & KPI Pipeline"
+format:
+  html:
+    toc: true
+    embed-resources: false
+execute:
+  enabled: false
+---
+
+## Executive summary
+
+SEC filing vintages are retained by CIK, accession, period end, and availability date. Direct-quarter and annual flow facts are calculated separately from their reported durations; YTD and ambiguous contexts are excluded from comparable KPIs. Historical KPI comparisons use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Ratios use guarded denominators and no source vintage is overwritten.
+
+## Coverage
+
+
+
+| kpi_records| companies| kpis|start_period |end_period | quarterly_records| annual_records|
+|-----------:|---------:|----:|:------------|:----------|-----------------:|--------------:|
+|     2162632|     15752|   21|1988-05-31   |2026-07-05 |           1233795|         928837|
+
+## KPI formulae
+
+
+
+|kpi                                |formula                                                                   |caveat                                                                                                                                                                                                                                                                                    |
+|:----------------------------------|:-------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|revenue_growth                     |revenue / prior-period revenue - 1                                        |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|gross_margin                       |gross profit / revenue                                                    |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|operating_margin                   |operating income / revenue                                                |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|roa                                |net income / average assets                                               |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|roe                                |net income / average equity                                               |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|roic_proxy                         |operating income / (assets - cash)                                        |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|asset_turnover                     |revenue / average assets                                                  |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|net_debt                           |debt - cash                                                               |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|net_debt_to_operating_income_proxy |(debt - cash) / operating income proxy                                    |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|debt_to_equity                     |debt / equity                                                             |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|interest_coverage                  |operating income / interest expense                                       |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|cfo_margin                         |operating cash flow / revenue                                             |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|fcf                                |operating cash flow - capex                                               |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|fcf_margin                         |FCF / revenue                                                             |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|capex_intensity                    |capex / revenue                                                           |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|accrual_ratio                      |(net income - operating cash flow) / average assets                       |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|cash_conversion                    |operating cash flow / net income                                          |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|operating_margin_change            |current operating margin - PIT-compatible prior-period margin             |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|cfo_margin_change                  |current CFO margin - PIT-compatible prior-period CFO margin               |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|debt_to_equity_change              |current debt/equity - PIT-compatible prior-period debt/equity             |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+|interest_coverage_change           |current interest coverage - PIT-compatible prior-period interest coverage |Quarterly and annual facts are calculated separately from direct reported durations; YTD and ambiguous contexts are excluded. KPIs use the first filed vintage for each fiscal period; later restatements remain preserved in the normalized fact mart. Zero denominators return missing. |
+
+## Largest reported revenue deteriorations
+
+
+
+|CIK        |period_end |frequency | revenue_growth|
+|:----------|:----------|:---------|--------------:|
+|0001539850 |2015-09-30 |quarterly |    -6071.26316|
+|0001640251 |2019-06-30 |annual    |     -725.67110|
+|0001384072 |2012-06-30 |quarterly |     -714.21596|
+|0001171825 |2012-06-30 |quarterly |     -353.80000|
+|0000023795 |2011-09-30 |quarterly |     -250.83656|
+|0001396877 |2015-06-30 |quarterly |     -209.59914|
+|0001396877 |2015-06-30 |quarterly |     -209.59914|
+|0001101169 |2013-06-30 |quarterly |     -101.79527|
+|0001420031 |2010-09-30 |quarterly |      -76.93640|
+|0001405513 |2022-09-30 |quarterly |      -62.51370|
+|0001405513 |2021-09-30 |quarterly |      -58.80745|
+|0001451512 |2014-06-30 |quarterly |      -48.67321|
+|0001451512 |2014-06-30 |quarterly |      -48.67321|
+|0000355379 |2021-09-30 |quarterly |      -48.30328|
+|0001716583 |2022-12-31 |annual    |      -47.57500|
+|0000813762 |2020-06-30 |quarterly |      -46.15000|
+|0001593001 |2017-03-31 |quarterly |      -39.75148|
+|0001535955 |2023-09-30 |quarterly |      -35.85732|
+|0001353741 |2013-09-30 |quarterly |      -29.32451|
+|0000732834 |2012-06-30 |quarterly |      -28.74700|
+|0001353741 |2012-09-30 |quarterly |      -27.90704|
+|0001104485 |2019-06-30 |quarterly |      -27.88780|
+|0000314712 |2014-06-30 |quarterly |      -27.04038|
+|0001593001 |2015-03-31 |quarterly |      -26.46450|
+|0001527469 |2021-06-30 |quarterly |      -24.87732|
+|0001679688 |2024-09-30 |quarterly |      -24.73714|
+|0000020286 |2021-06-30 |quarterly |      -24.18182|
+|0001405513 |2022-12-31 |annual    |      -24.00546|
+|0001405513 |2014-09-30 |quarterly |      -23.31415|
+|0001472494 |2010-09-30 |quarterly |      -22.30843|
+|0000785786 |2013-09-28 |annual    |      -21.55910|
+|0001796022 |2022-03-31 |annual    |      -21.20785|
+|0000814585 |2020-06-30 |quarterly |      -20.00000|
+|0001411494 |2011-09-30 |quarterly |      -19.66271|
+|0000814585 |2024-06-30 |quarterly |      -19.50000|
+|0001796022 |2025-03-31 |annual    |      -18.38583|
+|0001527613 |2017-06-30 |quarterly |      -18.21173|
+|0001396878 |2018-12-31 |annual    |      -17.25232|
+|0000881453 |2017-12-31 |annual    |      -16.06402|
+|0001671686 |2018-12-31 |annual    |      -16.00093|
+|0001576018 |2021-06-30 |quarterly |      -15.50904|
+|0001396878 |2017-06-30 |quarterly |      -15.24547|
+|0000005272 |2010-12-31 |annual    |      -12.33421|
+|0001357371 |2011-06-30 |quarterly |      -12.20655|
+|0001327068 |2023-09-30 |quarterly |      -12.12169|
+|0001832161 |2024-03-31 |quarterly |      -11.28466|
+|0001405513 |2020-09-30 |quarterly |      -10.84221|
+|0000727920 |2022-06-30 |quarterly |      -10.84085|
+|0001183082 |2013-12-31 |annual    |      -10.48367|
+|0001706431 |2022-09-30 |quarterly |      -10.21896|
+
+## Reproducibility
+
+Generated by the `targets`-orchestrated R pipeline.

@@ -1,0 +1,26 @@
+name: R research contracts
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test-and-demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: release
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-renv@v2
+      - name: Run unit and leakage tests
+        run: Rscript -e "testthat::test_dir('tests/testthat', reporter='summary', stop_on_failure=TRUE)"
+      - name: Run offline five-minute demo
+        run: Rscript scripts/run_demo.R
+      - name: Upload demo report
+        uses: actions/upload-artifact@v4
+        with:
+          name: financial-research-demo
+          path: demo/output/

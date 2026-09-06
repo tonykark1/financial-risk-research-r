@@ -1,0 +1,9 @@
+{
+  "status": "completed",
+  "elapsed_seconds": 5.63,
+  "targets_outdated_before": 1,
+  "cache_state": "build_required",
+  "maximum_runtime_seconds": 300,
+  "within_runtime_contract": true,
+  "generated_at": "2026-09-06T22:34:07Z"
+}
