@@ -14,6 +14,8 @@ jobs:
         with:
           r-version: release
           use-public-rspm: true
+      - name: Install Linux system libraries
+        run: sudo apt-get update && sudo apt-get install -y libglpk-dev
       - uses: r-lib/actions/setup-renv@v2
       - name: Run unit and leakage tests
         run: Rscript -e "testthat::test_dir('tests/testthat', reporter='summary', stop_on_failure=TRUE)"
