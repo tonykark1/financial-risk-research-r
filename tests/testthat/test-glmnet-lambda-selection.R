@@ -4,12 +4,12 @@ test_that("glmnet tuning refits the lambda that actually won validation", {
     x1 = seq(-2, 2, length.out = n),
     x2 = sin(seq(0, 4 * pi, length.out = n))
   )
-  train[, target := 5 + 3 * x1 - 1.5 * x2]
+  train[, response := 5 + 3 * x1 - 1.5 * x2]
 
   predictors <- c("x1", "x2")
   prep <- training_preprocessor(train, predictors)
   x <- apply_preprocessor(train, predictors, prep)
-  y <- train$target
+  y <- train$response
   split <- chronological_validation_indices(nrow(train))
   lambda_grid <- exp(seq(log(1e-5), log(1), length.out = 30L))
 
@@ -32,7 +32,7 @@ test_that("glmnet tuning refits the lambda that actually won validation", {
 
     fitted <- fit_forecast_model(
       train = train,
-      target = "target",
+      target = "response",
       predictors = predictors,
       model = model,
       seed = 42L
