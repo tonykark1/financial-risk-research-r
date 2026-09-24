@@ -73,7 +73,7 @@ fit_forecast_model <- function(train, target, predictors, model, tuning = TRUE, 
     )
     validation_predictions <- predict(base_fit, x[split$validation, , drop = FALSE])
     losses <- colMeans((validation_predictions - y[split$validation])^2, na.rm = TRUE)
-    lambda <- lambda_grid[[which.min(losses)]]
+    lambda <- base_fit$lambda[[which.min(losses)]]
     fit <- glmnet::glmnet(x, y, alpha = alpha, lambda = lambda, standardize = FALSE)
     return(list(model = model, fit = fit, prep = prep, predictors = predictors,
       hyperparameters = list(alpha = alpha, lambda = lambda), scale = TRUE
