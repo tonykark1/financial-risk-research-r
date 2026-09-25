@@ -1,4 +1,4 @@
-name: Macro-volatility research contracts
+name: R research contracts
 
 on:
   push:
@@ -17,14 +17,12 @@ jobs:
       - name: Install Linux system libraries
         run: sudo apt-get update && sudo apt-get install -y libglpk-dev
       - uses: r-lib/actions/setup-renv@v2
-      - name: Parse the macro-only targets graph
-        run: Rscript -e "targets::tar_manifest()"
-      - name: Run timing, leakage, and result-contract tests
+      - name: Run unit and leakage tests
         run: Rscript -e "testthat::test_dir('tests/testthat', reporter='summary', stop_on_failure=TRUE)"
-      - name: Run the offline five-minute demo
+      - name: Run offline five-minute demo
         run: Rscript scripts/run_demo.R
-      - name: Upload the macro demo
+      - name: Upload demo report
         uses: actions/upload-artifact@v4
         with:
-          name: macro-volatility-demo
+          name: financial-research-demo
           path: demo/output/

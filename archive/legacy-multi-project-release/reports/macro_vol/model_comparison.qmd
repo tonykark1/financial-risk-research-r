@@ -8,6 +8,8 @@ execute:
   enabled: false
 ---
 
+> **Historical snapshot — superseded.** This report predates the September 2026 glmnet tuning correction. Use the [current macro-only release](../../../../README.md) for corrected rankings: Elastic Net leads at 1 and 5 days; HAR-VIX leads at 10 and 22 days.
+
 ## Executive summary
 
 The experiment uses only true-vintage macro observations in historical forecasts. All scaling, imputation, tuning, and fitting occur inside each expanding training window. The strongest QLIKE model is reported separately for each horizon.

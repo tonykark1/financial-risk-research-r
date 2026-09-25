@@ -1,116 +1,119 @@
-# Point-in-Time Volatility Research Platform
+# Point-in-Time Volatility Research
 
-An R research portfolio centered on one question: **does information genuinely available at forecast time improve equity-index volatility forecasts beyond a parsimonious HAR baseline?**
+**Research question:** Does information genuinely available at forecast time improve equity-index volatility forecasts beyond a parsimonious HAR baseline?
 
-The repository also contains two supporting case studies—a European bank capital/profitability monitor and a duration-aware SEC fundamentals pipeline—to demonstrate that the same information-timing and data-contract principles carry across financial domains.
+The corrected experiment has a split result: **Elastic Net had the lowest sample-average out-of-sample QLIKE at 1 and 5 days, while HAR plus VIX led at 10 and 22 days.** Neither tested tree ensemble led at any horizon under the implemented tuning and retraining protocol. These are sample- and metric-specific rankings, not a general claim that nonlinear models cannot help.
 
-## Result first
+![Forecast loss relative to HAR](figures/benchmark-relative-qlike.png)
 
-**[View the curated eight-plot case study](https://financial-risk-research.tonykark123.chatgpt.site)** — the recruiter-facing narrative, with the complete 30-plot analysis available in its appendix.
+## Results in one minute
 
-**[Open the generated 30-plot research gallery](reports/plot_gallery.html)** — ten macro-forecasting, ten bank-risk, and ten company-fundamentals views, with an auditable [plot manifest](reports/plot_gallery_manifest.csv).
+| Horizon | Lowest-QLIKE model | Forecast records | QLIKE | Variance RMSE |
+|---:|:---|---:|---:|---:|
+| 1 day | Elastic Net | 4,552 | -6.582416 | 0.000564 |
+| 5 days | Elastic Net | 4,548 | -6.681832 | 0.001909 |
+| 10 days | HAR + VIX | 4,543 | -5.916593 | 0.003007 |
+| 22 days | HAR + VIX | 4,531 | -4.946431 | 0.006556 |
+At 10 days, HAR plus VIX and Elastic Net are nearly tied on average QLIKE; no direct pairwise significance claim is made between them.
 
-The flagship experiment produced **127,218 chronological out-of-sample forecasts** across 28 model–horizon combinations. HAR-VIX achieved the lowest QLIKE at every evaluated horizon:
 
-| Horizon | Best model | QLIKE | Variance RMSE |
-|---:|:---|---:|---:|
-| 1 day | HAR-VIX | -6.538962 | 0.000574 |
-| 5 days | HAR-VIX | -6.671805 | 0.001619 |
-| 10 days | HAR-VIX | -5.916593 | 0.003007 |
-| 22 days | HAR-VIX | -4.946431 | 0.006556 |
+The experiment generated **127,218 model forecasts**:
 
-Tree ensembles did not improve on the compact HAR-VIX specification. That negative complexity result is retained rather than hidden.
-
-![Macro report with true-vintage coverage manifest](docs/images/macro-model-comparison.png)
-
-## Research design
-
-```mermaid
-flowchart LR
-    A["Immutable source lake"] --> B["DuckDB views"]
-    B --> C["Observation and availability dates"]
-    C --> D["Point-in-time feature panels"]
-    D --> E["Expanding-window estimation"]
-    E --> F["Chronological forecasts"]
-    F --> G["QLIKE, RMSE, HAC DM tests"]
-    G --> H["Quarto reports and audit artifacts"]
+```text
+7 models × (4,552 + 4,548 + 4,543 + 4,531 forecast dates)
+= 7 × 18,174 date–horizon evaluations
+= 127,218 model–date–horizon predictions
 ```
 
-Core safeguards:
+This is not 127,218 independent market events: models share forecast origins, horizons reuse dates, and multi-day targets overlap. The largest panel contains 4,552 unique forecast dates.
 
-- Macro history in the primary experiment is limited to a controlled true-vintage set; revised history is not admitted.
-- Forward targets become trainable only after the complete forecast horizon has elapsed.
-- Imputation, scaling, tuning and fitting occur inside each training window.
-- Overlapping-horizon Diebold–Mariano comparisons use HAC inference.
-- Model failures and negative benchmark results remain visible in the outputs.
+Read the [focused research report](report/analysis.md), inspect the [saved model metrics](results/model_metrics.csv), or browse the [ten diagnostic figures](figures/macro_gallery/).
 
-## Supporting case studies
+## Data and target
 
-### European bank capital and profitability monitor
+The target is future variance over 1, 5, 10, or 22 trading days, constructed from subsequent S&P 500 close-to-close daily returns. This is a **daily variance proxy**, not intraday realized volatility.
 
-The bank panel covers **144 banks, 28 countries and 1,893 bank-quarter observations**. It scores only supported capital and profitability dimensions. Credit, bank-equity market and country-macro dimensions are explicitly unavailable.
+Inputs include:
 
-All fitted CET1-deterioration models have negative out-of-sample R-squared relative to a zero-change persistence benchmark. Accordingly, this component is presented as a **monitoring and descriptive sensitivity system—not a forecasting success or comprehensive bank-risk model**.
+- HAR daily, weekly, and monthly volatility components;
+- market VIX;
+- release-dated federal funds, Treasury-yield, credit-spread, unemployment, CPI, industrial-production, and real-GDP series.
 
-### Duration-aware SEC fundamentals pipeline
+Market history is retrieval-time data. The macro-release panel retains observation and recorded availability dates, and as-of joins exclude records dated after each forecast origin. Same-day HAR and market-VIX inputs use an after-close convention. The full source lake is private and is not committed; compact result snapshots and a deterministic fixture are public.
 
-The supplied lake exposes **124,727,683 upstream XBRL facts** and 3,212,976 filing records. The project directly transforms **11,050,014 selected facts with duration metadata** and produces **2,162,632 comparable KPI records** for 15,752 issuers.
+## Models
 
-- Direct-quarter and annual facts are processed separately.
-- YTD and ambiguous durations are excluded from comparable KPIs.
-- KPI history uses the first filed vintage for each fiscal period.
-- Amendments and restatements remain preserved in the normalized fact mart.
-- “Net debt / EBITDA” was removed because EBITDA is unavailable; the implemented proxy is accurately named `net_debt_to_operating_income_proxy`.
-- Asset-size cohorts are labeled size cohorts, not industry peers.
+Seven specifications are evaluated at each horizon:
 
-![Duration-aware fundamentals report](docs/images/fundamentals-quality.png)
+1. HAR
+2. HAR + VIX
+3. HAR + rates
+4. Ridge
+5. Elastic Net
+6. Random Forest
+7. XGBoost
 
-## What the project does—and does not—claim
+Ridge, Elastic Net, Random Forest, and XGBoost use small predefined searches on a chronological validation tail. Selection uses log-variance mean squared error; final ranking uses QLIKE. Linear and regularised models retrain every 22 trading days, while the tree models retrain every 66 days. The negative complexity result therefore applies to these implemented protocols—it is not a universal claim about machine learning.
 
-| Component | Defensible claim | Explicit boundary |
-|:---|:---|:---|
-| Macro | True-vintage, chronological model comparison | Daily close-to-close variance proxy, not intraday realized variance |
-| Bank | Capital/profitability monitoring and descriptive sensitivities | Conservative pseudo-PIT; exact EBA publication timestamps are unavailable |
-| SEC | Duration-separated, first-vintage comparable KPI history | Normalized selected concepts, not all 124.7M facts transformed into KPIs |
-| Cohorts | Period-specific asset-size comparisons | Not sector, industry or country peer groups |
+**Method revision (September 2026):** an audit corrected the mapping between `glmnet` validation-loss columns and candidate penalties. Every committed result artifact in this release was regenerated after that correction.
 
-## Five-minute recruiter demo
+## Evaluation protocol
 
-The offline demo uses deterministic fixtures and does not require the 7.9 GB source lake:
+- Forecasting begins after a 756-row history; target-availability gating leaves slightly fewer eligible training observations at longer horizons.
+- Release-dated macro features enter only when recorded as available; same-day HAR and market-VIX inputs follow the after-close convention.
+- A forward target enters training only after its complete horizon has elapsed.
+- Test observations never enter imputation, scaling, tuning, or fitting.
+- Overlapping-horizon Diebold–Mariano comparisons use Newey-West/HAC inference.
+- Fitting errors are retained as missing row-level predictions; this execution's failure count is published in the headline metadata. Underperforming specifications remain visible in the metrics.
 
-```powershell
-& 'C:\Program Files\R\R-4.6.1\bin\Rscript.exe' scripts/run_demo.R
+Preprocessing is fitted on the full outer training window before its final 20% is used for hyperparameter selection. This does not leak the test set, but it is not strictly nested with respect to the tuning holdout.
+
+## Five-minute deterministic demo
+
+The demo needs no private source lake. It checks chronological splitting, target-availability gating, and a HAR versus HAR + VIX comparison on a deterministic fixture:
+
+```text
+Rscript scripts/run_demo.R
 ```
 
-The script runs a separate seven-target pipeline, writes `demo/output/portfolio_demo.html`, records runtime in `demo/output/runtime.json`, and fails if execution exceeds 300 seconds. The latest verified clean-store runtime on the development machine is **0.58 seconds**.
+Output: `demo/output/macro_demo.html` and `demo/output/runtime.json`.
+
+The demo verifies workflow mechanics. It does not reproduce the full 127,218-forecast experiment.
 
 ## Full reproduction
 
-```powershell
-& 'C:\Program Files\R\R-4.6.1\bin\Rscript.exe' -e "renv::restore()"
-& 'C:\Program Files\R\R-4.6.1\bin\Rscript.exe' -e "targets::tar_make()"
-& 'C:\Program Files\R\R-4.6.1\bin\Rscript.exe' -e "testthat::test_dir('tests/testthat')"
+```r
+renv::restore()
+Sys.setenv(FINANCIAL_RESEARCH_UPSTREAM_ROOT = "path/to/source-lake")
+targets::tar_make()
+testthat::test_dir("tests/testthat")
 ```
 
-Set `FINANCIAL_RESEARCH_UPSTREAM_ROOT` to the source-lake directory, or edit `upstream_root` in `config.yml`. The full pipeline is designed for the local source lake; generated gold data, databases and rendered reports are excluded from version control. The deterministic demo fixtures are included for CI and review.
+The full run reads Parquet/DuckDB inputs from the local source lake without modifying them and writes compact results, figures, and the report. Without that lake, a fresh clone can reproduce the demo and tests, but not the headline numerical experiment.
 
-## Engineering evidence
+## Limitations
 
-- R, DuckDB, Parquet, `targets`, `renv`, `testthat` and Quarto.
-- 27 registered local DuckDB tables/views.
-- Unit tests for PIT joins, deliberate leakage failures, chronological splits, filing vintages, duration classification, financial identities and schema contracts.
-- GitHub Actions runs the tests and offline demo without the private source lake.
-- Structured pipeline, quality, model-run and failure logs.
-- Machine-generated CV metrics, skeptical final audit and interview defense notes.
+- Close-to-close squared returns are a noisy volatility proxy; they are not an intraday realized measure.
+- The evidence covers one index and forecast dates from 3 July 2008 through 7 August 2026; other indices and periods are untested.
+- HAR + VIX uses retrieval-time market VIX; availability-date controls apply to the macro-release panel.
+- Hyperparameter searches are deliberately narrow and optimise log-MSE rather than QLIKE.
+- Models are fitted to log variance and exponentiated for level metrics without a separate smearing correction.
+- Tree models use a less frequent retraining schedule than the other models.
+- Nominal DM p-values are not adjusted for the full family of 24 comparisons; the 22-day HAR + VIX comparison is borderline at `p = 0.0497`.
+- No trading positions, turnover, transaction costs, or strategy returns are modelled. These results do **not** establish trading profitability.
 
-## Key outputs
+## Repository map
 
-- `reports/macro_vol/macro_volatility_forecasting.html` — flagship research report
-- `reports/bank_risk/bank_risk_monitor.html` — bounded bank monitor
-- `reports/fundamentals/company_kpi_dashboard.html` — duration-aware KPI dashboard
-- `reports/cv_metrics.md` — machine-generated scale metrics
-- `reports/final_audit.md` — limitations and trust decision
-- `reports/interview_notes.md` — research-defense notes
+```text
+R/macro_vol/          data preparation, walk-forward models, evaluation, figures
+data/demo/input/      deterministic public fixture
+figures/macro_gallery committed diagnostic figures
+report/analysis.md    focused research report
+results/              auditable result snapshots
+scripts/run_demo.R    portable five-minute entry point
+tests/testthat/       timing, leakage, calculation, and result-contract tests
+archive/              preserved material from the earlier multi-project version
+```
 
-See `reports/repository_audit.md` for source inventory and provenance details.
+The previous bank-risk and SEC-fundamentals case studies were preserved under [`archive/`](archive/) and are outside this release's active pipeline.
 

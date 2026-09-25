@@ -1,0 +1,40 @@
+{
+  "generated_from": "executed walk-forward prediction outputs",
+  "method_revision": "glmnet_lambda_mapping_corrected_2026-09",
+  "model_forecasts": 127218,
+  "failed_forecast_rows": 0,
+  "model_horizon_combinations": 28,
+  "date_horizon_evaluations": 18174,
+  "maximum_unique_forecast_dates": 4552,
+  "unique_forecast_dates": 4552,
+  "first_forecast_date": "2008-07-03",
+  "last_forecast_date": "2026-08-07",
+  "models": 7,
+  "horizons_days": [1, 5, 10, 22],
+  "best_qlike_by_horizon": [
+    {
+      "horizon_days": 1,
+      "model": "Elastic_Net",
+      "qlike": -6.5824155792,
+      "forecasts": 4552
+    },
+    {
+      "horizon_days": 5,
+      "model": "Elastic_Net",
+      "qlike": -6.6818315874,
+      "forecasts": 4548
+    },
+    {
+      "horizon_days": 10,
+      "model": "HAR_VIX",
+      "qlike": -5.9165928582,
+      "forecasts": 4543
+    },
+    {
+      "horizon_days": 22,
+      "model": "HAR_VIX",
+      "qlike": -4.9464313055,
+      "forecasts": 4531
+    }
+  ]
+}

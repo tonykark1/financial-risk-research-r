@@ -1,5 +1,5 @@
 demo:
-  project_name: "Point-in-Time Volatility Research - Five-Minute Demo"
+  project_name: "Financial Research in R - Recruiter Demo"
   seed: 20260813
   maximum_runtime_seconds: 300
   macro_initial_fraction: 0.65

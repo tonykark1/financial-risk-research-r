@@ -1,5 +1,7 @@
 # Interview defense notes
 
+> **Archive note:** The macro-volatility conclusions below use the corrected September 2026 rerun. Historical gallery images in this archive may still show superseded pre-correction regularized-model rankings; the active project README and report are authoritative.
+
 ## European Bank Capital & Profitability Monitor
 
 - **Research question:** Which EBA banks warrant monitoring based on supported capital and profitability indicators?
@@ -20,12 +22,12 @@
 - **Research question:** Does macro information genuinely available at forecast time improve volatility forecasts beyond HAR?
 - **Data:** S&P 500 daily returns/realized-variance proxies, VIX, rates, curve, spreads, inflation, labor, activity, and GDP true vintages where available.
 - **Key design choice:** Exclude current-revised macro history from historical forecasts and gate target availability for overlapping horizons.
-- **Strongest result:** Best QLIKE model by horizon: HAR_VIX@1, HAR_VIX@5, HAR_VIX@10, HAR_VIX@22.
+- **Strongest result:** Best QLIKE model by horizon: Elastic_Net@1, Elastic_Net@5, HAR_VIX@10, HAR_VIX@22.
 - **Weakest result:** Tree ensembles trail HAR-VIX on QLIKE despite tuning.
 - **Major limitation:** Daily realized variance is constructed from close-to-close returns, not intraday returns.
 - **Look-ahead safeguards:** Expanding windows; training-only scaling, imputation, tuning; true `available_at`; overlapping-horizon HAC DM tests.
 - **Why HAR:** It is parsimonious, interpretable, and a strong volatility baseline.
-- **What failed:** Additional complexity did not dominate the compact VIX-augmented HAR specification.
+- **What failed:** Tree ensembles did not lead on full-sample QLIKE; Elastic Net led at 1 and 5 days, while HAR-VIX led at 10 and 22 days.
 - **Improvement:** Add verified intraday realized measures and a broader true-vintage macro set.
 
 ## Automated Financial Data & KPI Pipeline
