@@ -1,0 +1,11 @@
+number,slug,title,caption,file
+1,01-macro-qlike-by-horizon,Forecast QLIKE by horizon,Compares variance-forecast loss across the seven tested specifications.,figures/macro_gallery/01-macro-qlike-by-horizon.png
+2,02-macro-rmse-by-horizon,Forecast RMSE by horizon,Shows level-error trade-offs that QLIKE alone can conceal.,figures/macro_gallery/02-macro-rmse-by-horizon.png
+3,03-macro-model-rank-heatmap,Model rank consistency,Shows whether model leadership is stable across forecast horizons.,figures/macro_gallery/03-macro-model-rank-heatmap.png
+4,04-macro-actual-vs-forecast,Actual versus 22-day forecast,Places HAR plus VIX against the close-to-close variance proxy through time.,figures/macro_gallery/04-macro-actual-vs-forecast.png
+5,05-macro-forecast-calibration,22-day forecast calibration,Checks dispersion and extreme-event calibration on log scales.,figures/macro_gallery/05-macro-forecast-calibration.png
+6,06-macro-residual-distribution,22-day log-error distribution,Shows the distribution of log forecast errors by model.,figures/macro_gallery/06-macro-residual-distribution.png
+7,07-macro-cumulative-loss-difference,Cumulative loss versus HAR,Tracks when HAR plus VIX gains or loses against HAR.,figures/macro_gallery/07-macro-cumulative-loss-difference.png
+8,08-macro-regime-heatmap,Performance across stress regimes,Compares 22-day QLIKE across predefined economic regimes.,figures/macro_gallery/08-macro-regime-heatmap.png
+9,09-macro-dm-significance,Diebold-Mariano comparison,Shows HAC test statistics against HAR; stars are nominal p < 0.05.,figures/macro_gallery/09-macro-dm-significance.png
+10,10-macro-vintage-coverage,Vintage-coverage audit,Audits release visibility and publication lags for the macro series.,figures/macro_gallery/10-macro-vintage-coverage.png

@@ -23,12 +23,18 @@ project_path <- function(..., root = getwd()) {
 
 ensure_project_directories <- function(root = getwd()) {
   paths <- c(
-    "R/macro_vol", "data/raw", "data/bronze", "data/silver", "data/gold",
-    "data/gold/macro_vol", "data/snapshots", "database", "report",
-    "figures/macro_gallery", "results", "tests/testthat", "logs", "docs"
+    "R/bank_risk", "R/macro_vol", "R/fundamentals",
+    "data/raw", "data/bronze", "data/silver", "data/gold",
+    "data/gold/bank_risk", "data/gold/macro_vol", "data/gold/fundamentals",
+    "data/snapshots", "database", "reports/bank_risk", "reports/macro_vol",
+    "reports/fundamentals", "reports/diagnostics", "figures/bank_risk",
+    "figures/macro_vol", "figures/fundamentals", "figures/gallery", "tables/bank_risk",
+    "tables/macro_vol", "tables/fundamentals", "tests/testthat", "notebooks",
+    "logs", "docs", "sql"
   )
   invisible(vapply(file.path(root, paths), dir.create, logical(1),
-    recursive = TRUE, showWarnings = FALSE))
+    recursive = TRUE, showWarnings = FALSE
+  ))
 }
 
 log_event <- function(module, dataset = NA_character_, entity = NA_character_,
@@ -54,11 +60,13 @@ with_logged_step <- function(module, dataset = NA_character_, code) {
     value
   }, warning = function(w) {
     log_event(module, dataset, status = "warning", warning = conditionMessage(w),
-      runtime = proc.time()[["elapsed"]] - started)
+      runtime = proc.time()[["elapsed"]] - started
+    )
     invokeRestart("muffleWarning")
   }, error = function(e) {
     log_event(module, dataset, status = "error", error = conditionMessage(e),
-      runtime = proc.time()[["elapsed"]] - started)
+      runtime = proc.time()[["elapsed"]] - started
+    )
     stop(e)
   })
 }
@@ -78,4 +86,3 @@ atomic_write_lines <- function(text, path) {
   if (!file.rename(tmp, path)) stop("Could not atomically write ", path)
   normalizePath(path, winslash = "/", mustWork = TRUE)
 }
-

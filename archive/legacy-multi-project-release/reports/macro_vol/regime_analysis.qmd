@@ -8,6 +8,8 @@ execute:
   enabled: false
 ---
 
+> **Historical snapshot — superseded.** This report predates the September 2026 glmnet tuning correction. Use the [current macro-only release](../../../../README.md) for corrected rankings: Elastic Net leads at 1 and 5 days; HAR-VIX leads at 10 and 22 days.
+
 ## Executive summary
 
 Regime thresholds are fixed from the initial training window or set by economic convention; they are not optimized on forecast performance.
